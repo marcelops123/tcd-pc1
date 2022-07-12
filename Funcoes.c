@@ -388,3 +388,5 @@ void OpcaoInvalida()
     return main();
     return 0;
 }
+
+'-'

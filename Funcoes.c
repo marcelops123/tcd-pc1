@@ -389,4 +389,3 @@ void OpcaoInvalida()
     return 0;
 }
 
-'-'

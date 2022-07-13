@@ -49,7 +49,7 @@ void CadastrarEvento()
 
             printf("Eventos cadastrados com sucesso!\n\n");
             printf("Redirecionando....\n" ANSI_COLOR_PADRAO); // A partir daqui o console volta a sua cor padrão.
-            Sleep(1000); // Delay de 1000 milisegundos = (1 segundo)
+            Sleep(1000);                                      // Delay de 1000 milisegundos = (1 segundo)
             system("cls");
 
             return main(); // Retorna ao menu principal
@@ -102,28 +102,39 @@ void CadastrarEvento()
         printf("O evento será open bar?(Digite 1 se sim ou 0 se não). \n\n");
         fflush(stdin);
         scanf("%d", &pergunta_openbar);
-        if (pergunta_openbar == 1) // Se a resposta do usuário for igual a 1 ele executará os passos seguintes fazendo o cadastro das bebidas que estarão no evento 
+        if (pergunta_openbar == 1) // Se a resposta do usuário for igual a 1 ele executará os passos seguintes fazendo o cadastro das bebidas que estarão no evento
         {
+
+            system("cls");
             printf("Qual o nome da primeira bebida?\n ");
             fflush(stdin);
             scanf("%[^\n]", &register_event[i].nomebebida1);
+
+            
             printf("Qual o teor alcóolico da primeira bebida?\n ");
             fflush(stdin);
             scanf("%f", &register_event[i].teorbebida1);
+
+            
             printf("Qual o valor da primeira bebida?\n ");
             fflush(stdin);
             scanf("%f", &register_event[i].valorbebida1);
 
+            system("cls");
             printf("Qual o nome da segunda bebida?\n");
             fflush(stdin);
             scanf("%[^\n]", &register_event[i].nomebebida2);
+
+            
             printf("Qual o teor alcóolico da segunda bebida?\n ");
             fflush(stdin);
             scanf("%.2f", &register_event[i].teorbebida2);
+
             printf("Qual o valor da segunda bebida?\n ");
             fflush(stdin);
             scanf("%f", &register_event[i].valorbebida2);
 
+            system("cls");
             printf("Qual o nome da terceira bebida?\n ");
             fflush(stdin);
             scanf("%[^\n]", &register_event[i].nomebebida3);
@@ -134,6 +145,7 @@ void CadastrarEvento()
             fflush(stdin);
             scanf("%f", &register_event[i].valorbebida3);
 
+            system("cls");
             printf("Qual o nome da quarta bebida?\n ");
             fflush(stdin);
             scanf("%[^\n]", &register_event[i].nomebebida4);
@@ -172,7 +184,7 @@ void PesquisarEvento()
     scanf("%d", &Idpesquisa);
     for (i = 0; i <= 4; i++) // Variável contadora de 0 a 4 que percorrerá o Array encontrando os elementos presentes.
     {
-        if (register_event[i].id == Idpesquisa) // Verifica se o ID que o usuário digitou é igual a algum ID encontrado dentro do for 
+        if (register_event[i].id == Idpesquisa) // Verifica se o ID que o usuário digitou é igual a algum ID encontrado dentro do for
         {
 
             fflush(stdin); // Limpando o cache de memória local
@@ -196,7 +208,7 @@ void PesquisarEvento()
     }
     printf(ANSI_COLOR_RED "\n Não foi possível encontrar algum evento com o ID informado! \n" ANSI_COLOR_PADRAO);
     printf("\n Redirecionando para a página principal...\n" ANSI_COLOR_PADRAO);
-    Sleep(1000); // Delay de 1 segundo
+    Sleep(1000);   // Delay de 1 segundo
     system("cls"); // Limpando a tela do console
 
     return main();
@@ -205,7 +217,7 @@ void PesquisarEvento()
 void RegistrarVendidos() // Função usada para registrar a quantidade de ingressos vendidos por evento
 {
 
-    UINT CPAGE_UTF8 = 65001; // Código padrão da linguagem UTF8
+    UINT CPAGE_UTF8 = 65001;        // Código padrão da linguagem UTF8
     SetConsoleOutputCP(CPAGE_UTF8); // Define o console como UTF8 para acentuação correta
     int Idpesquisa;
     int lucro;
@@ -236,6 +248,15 @@ void RegistrarVendidos() // Função usada para registrar a quantidade de ingres
                 scanf("%f", &register_event[i].numero_vendidos_especial);
 
                 register_event[i].calculo_valor_entrada_vendidos = register_event[i].numero_vendidos_normal * register_event[i].valor_ent_normal + register_event[i].numero_vendidos_popular * register_event[i].valor_ent_popular + register_event[i].valor_ent_especial * register_event[i].numero_vendidos_especial;
+                if (register_event[i].numero_vendidos_normal + register_event[i].numero_vendidos_popular + register_event[i].numero_vendidos_especial > register_event[i].tickets_quantity)
+                {
+                    printf(ANSI_COLOR_RED "\nO número de ingressos vendidos é maior do que o número de ingressos disponíveis!\n" ANSI_COLOR_PADRAO);
+                    printf(ANSI_COLOR_AMARELO "\nSeu limite de ingressos para venda é de %d\n", register_event[i].tickets_quantity, ANSI_COLOR_PADRAO);
+                    printf(ANSI_COLOR_AMARELO"\nRetornando para o menu principal...\n"ANSI_COLOR_PADRAO);
+                    Sleep(3000);
+                    system("cls");
+                    return main();
+                }
                 register_event[i].saldo = register_event[i].calculo_valor_entrada_vendidos - register_event[i].organization_costs;
 
                 printf("\n Valor total de ingressos vendidos = R$ %.2f\n", register_event[i].calculo_valor_entrada_vendidos);
@@ -344,7 +365,7 @@ void SaldoPromoter()
         if (register_event[i].saldo == 0) // Se o saldo for igual a zero ele mostra uma mensagem na cor cyan informando que o promoter ainda não possui saldo
         {
             printf(ANSI_COLOR_CYAN "\n VOCÊ AINDA NÃO POSSUI SALDO! \n");
-            printf(ANSI_COLOR_CYAN"\n Experimente fazer o cadastro de algum evento e logo após faça o registro da quantidade de ingressos vendidos!\n\n"ANSI_COLOR_PADRAO);
+            printf(ANSI_COLOR_CYAN "\n Experimente fazer o cadastro de algum evento e logo após faça o registro da quantidade de ingressos vendidos!\n\n" ANSI_COLOR_PADRAO);
         }
         system("pause");
         printf(ANSI_COLOR_PADRAO "\n Redirecionando para a página principal...\n\n");
@@ -368,7 +389,7 @@ void EncerrarPrograma()
     if (digito == 6)
     {
 
-        printf(ANSI_COLOR_VERDE"\nPrograma encerrado com sucesso!\n"ANSI_COLOR_PADRAO);
+        printf(ANSI_COLOR_VERDE "\nPrograma encerrado com sucesso!\n" ANSI_COLOR_PADRAO);
         printf("+-------------------------------+\n");
         return 0;
     }
@@ -388,4 +409,3 @@ void OpcaoInvalida()
     return main();
     return 0;
 }
-
